@@ -392,21 +392,34 @@
             </p>
         </section>
 
+        <!-- FIXED: Universal Payment Section -->
         <section class="card">
             <h3 style="margin-bottom: 20px; color: var(--green-deep);">Send Kainettam</h3>
             <div class="payment-grid">
-                <a href="upi://pay?pa=adithyasathey35@okicici&pn=Adithya%20Sathey&am=50&cu=INR" class="pay-btn" onclick="triggerPayment(50, event)">
+                <button type="button" class="pay-btn" onclick="pay(50)">
                     <span>₹50 Blessing</span>
                     <span class="btn-icon">😄</span>
-                </a>
-                <a href="upi://pay?pa=adithyasathey35@okicici&pn=Adithya%20Sathey&am=100&cu=INR" class="pay-btn" onclick="triggerPayment(100, event)">
+                </button>
+                <button type="button" class="pay-btn" onclick="pay(100)">
                     <span>₹100 Respect</span>
                     <span class="btn-icon">😎</span>
-                </a>
-                <a href="upi://pay?pa=adithyasathey35@okicici&pn=Adithya%20Sathey&am=500&cu=INR" class="pay-btn" onclick="triggerPayment(500, event)">
+                </button>
+                <button type="button" class="pay-btn" onclick="pay(500)">
                     <span>₹500 Legend</span>
                     <span class="btn-icon">👑</span>
-                </a>
+                </button>
+
+                <!-- ADDED: Universal Fallback -->
+                <button type="button" class="pay-btn" style="background: var(--gold); color: white;" onclick="openUPI()">
+                    <span>Open Any UPI App</span>
+                    <span class="btn-icon">📲</span>
+                </button>
+
+                <!-- ADDED: Specific App Buttons -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <button type="button" class="pay-btn" style="font-size: 0.9rem; padding: 12px;" onclick="payWithApp('gpay')">Google Pay</button>
+                    <button type="button" class="pay-btn" style="font-size: 0.9rem; padding: 12px;" onclick="payWithApp('phonepe')">PhonePe</button>
+                </div>
             </div>
             <div class="upi-id-id">adithyasathey35@okicici</div>
         </section>
@@ -469,13 +482,38 @@
         }
         animateConfetti();
 
-        function triggerPayment(amt, event) {
-            // FIXED: Instant navigation handled by anchor tag. This function only triggers animations.
-            const x = event.clientX || window.innerWidth/2;
-            const y = event.clientY || window.innerHeight/2;
+        // FIXED: Universal Payment Logic
+        function pay(amount) {
+            // Trigger animations immediately
+            const x = window.innerWidth/2;
+            const y = window.innerHeight/2;
             for(let i=0; i<30; i++) { confettis.push(new ConfettiParticle(x, y)); }
-            
             if ("vibrate" in navigator) navigator.vibrate(50);
+
+            const upi = "upi://pay?pa=adithyasathey35@okicici&pn=Adithya%20Sathey&am=" + amount + "&cu=INR";
+            const intent = "intent://pay?pa=adithyasathey35@okicici&pn=Adithya%20Sathey&am=" + amount + "&cu=INR#Intent;scheme=upi;end;";
+
+            // IMMEDIATE REDIRECT
+            window.location.href = upi;
+
+            // FALLBACK REDIRECT (Intent for Android)
+            setTimeout(() => {
+                window.location.href = intent;
+            }, 300);
+        }
+
+        // ADDED: Fallback helpers
+        function openUPI() {
+            window.location.href = "upi://pay?pa=adithyasathey35@okicici&pn=Adithya%20Sathey&cu=INR";
+        }
+
+        function payWithApp(app) {
+            let baseUrl = "";
+            if(app === 'gpay') baseUrl = "tez://upi/pay";
+            else if(app === 'phonepe') baseUrl = "phonepe://pay";
+
+            const url = baseUrl + "?pa=adithyasathey35@okicici&pn=Adithya%20Sathey&cu=INR";
+            window.location.href = url;
         }
 
         // --- Core Music & Welcome Flow ---
