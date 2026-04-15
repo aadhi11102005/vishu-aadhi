@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Vishu | Kainettam from Aadhi</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Collect Vishu Kainettam digitally with style. Happy Vishu from Aadhi!">
+    <meta name="author" content="Aadhi">
+    
+    <!-- Modern Typography & Malayalam Support -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700;900&family=Baloo+Chettan+2:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --cream: #FDF5E6;
+            --gold: #D4AF37;
+            --gold-bright: #FFD700;
+            --amber: #FF8F00;
+            --green-deep: #0B2B1B;
+            --green-leaf: #1B4332;
+            --text-main: #0B2B1B;
+            --glass: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(212, 175, 55, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: url('bg.png') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Overlay for better readability */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.2); /* Soft light overlay */
+            z-index: -1;
+        }
+
+        /* Particles Overlay */
+        #particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Canvas for Confetti */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 200;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Sections Glassmorphism */
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Header / Hero */
+        header {
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--green-deep);
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 0;
+            animation: glowText 2s infinite alternate;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--green-leaf);
+            background: rgba(27, 67, 50, 0.1);
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 50px;
+            margin-top: 10px;
+        }
+
+        @keyframes glowText {
+            from { text-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+            to { text-shadow: 0 0 30px rgba(255, 215, 0, 0.6); }
+        }
+
+        /* Message */
+        .message-text {
+            font-family: 'Baloo Chettan 2', cursive, sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--green-deep);
+            line-height: 1.5;
+        }
+
+        /* Payment Buttons */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .pay-btn {
+            background: linear-gradient(135deg, var(--green-leaf) 0%, var(--green-deep) 100%);
+            color: #FDF5E6;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(11, 43, 27, 0.15);
+            text-decoration: none;
+        }
+
+        .pay-btn:active {
+            transform: scale(0.95);
+        }
+
+        .pay-btn:hover {
+            box-shadow: 0 8px 25px rgba(27, 67, 50, 0.3);
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+
+        .pay-btn .btn-icon {
+            font-size: 1.4rem;
+        }
+
+        .upi-id-id {
+            background: rgba(255, 215, 0, 0.15);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--green-deep);
+            border: 1px dashed var(--gold);
+        }
+
+        /* QR Section */
+        .qr-container {
+            position: relative;
+            display: inline-block;
+            padding: 10px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .qr-container img {
+            width: 200px;
+            border-radius: 15px;
+            display: block;
+        }
+
+        .qr-glow {
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border: 2px solid var(--gold);
+            border-radius: 25px;
+            opacity: 0.5;
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.03); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        /* Music Controls */
+        #music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 8px;
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .disk-btn {
+            width: 45px;
+            height: 45px;
+            background: var(--green-deep);
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .disk-btn.playing {
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .volume-slider {
+            width: 0;
+            opacity: 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        #music-control:hover .volume-slider {
+            width: 80px;
+            opacity: 1;
+            margin-right: 10px;
+        }
+
+        /* Petal/Coin Particles */
+
+        /* Music Controls */
+        #music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 8px;
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .disk-btn {
+            width: 45px;
+            height: 45px;
+            background: var(--green-deep);
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .disk-btn.playing {
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .volume-slider {
+            width: 0;
+            opacity: 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        #music-control:hover .volume-slider {
+            width: 80px;
+            opacity: 1;
+            margin-right: 10px;
+        }
+
+        /* Petal/Coin Particles */
+        .petal, .coin {
+            position: absolute;
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        .petal {
+            width: 15px;
+            height: 10px;
+            background: #FFEB3B;
+            border-radius: 50% 0 50% 50%;
+            animation: fall linear forwards;
+        }
+
+        .coin {
+            width: 20px;
+            height: 20px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: inset -2px -2px 0 rgba(0,0,0,0.2), 0 0 10px rgba(255,215,0,0.5);
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Mouse Sparkles */
+        .sparkle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            animation: sparkle-fade 0.8s forwards;
+        }
+
+        @keyframes sparkle-fade {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            font-size: 0.9rem;
+            color: var(--green-leaf);
+            opacity: 0.8;
+        }
+
+        /* Welcome Screen Overlay */
+        #welcome-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('bg.png') no-repeat center center fixed;
+            background-size: cover;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #welcome-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            z-index: -1;
+        }
+
+        #welcome-overlay.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(1.1);
+        }
+
+        .welcome-content {
+            padding: 50px 30px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            border: 2px solid var(--gold);
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%);
+            color: white;
+            border: none;
+            padding: 20px 45px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 15px 30px rgba(212, 175, 87, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            letter-spacing: 0.5px;
+            animation: pulseBtn 2.5s infinite;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        @keyframes pulseBtn {
+            0% { transform: scale(1); box-shadow: 0 8px 15px rgba(255, 215, 0, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(255, 215, 0, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 8px 15px rgba(255, 215, 0, 0.4); }
+        }
+
+        .start-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            background: linear-gradient(135deg, #FFF176 0%, var(--gold) 100%);
+        }
+
+        /* Mobile Responsive adjustments */
+        @media (max-width: 480px) {
+            h1 { font-size: 2.5rem; }
+            .container { padding: 20px 10px; }
+            .card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="particle-container"></div>
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Welcome Overlay -->
+    <div id="welcome-overlay">
+        <div class="welcome-content">
+            <h2 style="color: var(--green-deep); font-size: 2.8rem; margin-bottom: 10px; font-family: 'Playfair Display', serif;">Vishu 2026</h2>
+            <p style="color: var(--green-leaf); font-size: 1.2rem; font-weight: 500; margin-bottom: 20px; opacity: 0.8;">Step into the tradition</p>
+            <button class="start-btn" id="start-experience">Enter Celebration ✨</button>
+        </div>
+    </div>
+
+    <!-- Music Control -->
+    <div id="music-control">
+        <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="0.5" id="vol-slider">
+        <button class="disk-btn" id="music-btn">
+            <svg id="play-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+            <svg id="pause-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style="display:none">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Hidden Audio -->
+    <audio id="vishu-bgm" loop autoplay>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <header>
+            <h1>🌼 Happy Vishu </h1>
+            <div class="subtitle">From Aadhi 😎</div>
+        </header>
+
+        <!-- Message Section -->
+        <section class="card">
+            <p class="message-text">
+                “ഈ വിഷുവിൽ നിങ്ങളുടെ അനുഗ്രഹവും സ്നേഹവും എനിക്ക് ഏറ്റവും വലിയ സമ്പാദ്യമാണ്.”
+            </p>
+        </section>
+
+        <!-- Payment Section -->
+        <section class="card">
+            <h3 style="margin-bottom: 20px; color: var(--green-deep);">Send Kainettam</h3>
+            <div class="payment-grid">
+                <a href="upi://pay?pa=adithysathey35@okicici&pn=Adithya%20Sathey&am=50&cu=INR" class="pay-btn" onclick="triggerPayment(50, event)">
+                    <span>₹50 Blessing</span>
+                    <span class="btn-icon">😄</span>
+                </a>
+                <a href="upi://pay?pa=adithysathey35@okicici&pn=Adithya%20Sathey&am=100&cu=INR" class="pay-btn" onclick="triggerPayment(100, event)">
+                    <span>₹100 Respect</span>
+                    <span class="btn-icon">😎</span>
+                </a>
+                <a href="upi://pay?pa=adithysathey35@okicici&pn=Adithya%20Sathey&am=500&cu=INR" class="pay-btn" onclick="triggerPayment(500, event)">
+                    <span>₹500 Legend</span>
+                    <span class="btn-icon">👑</span>
+                </a>
+            </div>
+            <div class="upi-id-id">adithysathey35@okicici</div>
+        </section>
+
+        <!-- QR Code Section -->
+        <section class="card">
+            <h3 style="margin-bottom: 15px; color: var(--green-deep);">Scan & Pay</h3>
+            <div class="qr-container">
+                <div class="qr-glow"></div>
+                <img src="qr.png" alt="UPI QR Code" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=adithysathey35@okicici%26pn=Adithya%20Sathey%26cu=INR'">
+            </div>
+        </section>
+
+        <footer>
+            <p>Made with ❤️ by Aadhi 😎</p>
+            <p>© 2026 Kerala Vishu Special</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- Particle System ---
+        const particleContainer = document.getElementById('particle-container');
+        function createParticle() {
+            const isCoin = Math.random() > 0.7;
+            const element = document.createElement('div');
+            element.className = isCoin ? 'coin' : 'petal';
+            
+            const startX = Math.random() * window.innerWidth;
+            const duration = 5 + Math.random() * 5;
+            const size = (10 + Math.random() * 15) + 'px';
+            
+            element.style.left = startX + 'px';
+            element.style.width = size;
+            element.style.height = isCoin ? size : (parseInt(size)*0.7 + 'px');
+            element.style.animationDuration = duration + 's';
+            element.style.left = Math.random() * 100 + 'vw';
+            
+            particleContainer.appendChild(element);
+            
+            setTimeout(() => element.remove(), duration * 1000);
+        }
+        setInterval(createParticle, 500);
+
+        // --- Confetti Logic ---
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let confettis = [];
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class ConfettiParticle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 15;
+                this.vy = (Math.random() - 1) * 15;
+                this.color = `hsl(${Math.random() * 360}, 80%, 60%)`;
+                this.size = Math.random() * 8 + 4;
+                this.life = 100;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.3; // gravity
+                this.life -= 1.5;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.life / 100;
+                ctx.fillRect(this.x, this.y, this.size, this.size);
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        function animateConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confettis = confettis.filter(c => c.life > 0);
+            confettis.forEach(c => {
+                c.update();
+                c.draw();
+            });
+            requestAnimationFrame(animateConfetti);
+        }
+        animateConfetti();
+
+        function triggerPayment(amt, event) {
+            // Haptic feedback
+            if ("vibrate" in navigator) navigator.vibrate(50);
+            
+            // Confetti burst
+            const x = event.clientX || window.innerWidth/2;
+            const y = event.clientY || window.innerHeight/2;
+            for(let i=0; i<50; i++) {
+                confettis.push(new ConfettiParticle(x, y));
+            }
+
+            // Force redirect after a small delay to ensure confetti starts
+            const upiUrl = event.currentTarget.href;
+            setTimeout(() => {
+                window.location.href = upiUrl;
+            }, 500);
+            
+            // Prevent default to allow JS handling
+            event.preventDefault();
+        }
+
+        // --- Welcome Screen & Music Flow ---
+        const welcomeOverlay = document.getElementById('welcome-overlay');
+        const startBtn = document.getElementById('start-experience');
+        const bgm = document.getElementById('vishu-bgm');
+        const musicBtn = document.getElementById('music-btn');
+        const volSlider = document.getElementById('vol-slider');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        let isMusicStarted = false;
+
+        function updateMusicUI(playing) {
+            if (playing) {
+                musicBtn.classList.add('playing');
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+            } else {
+                musicBtn.classList.remove('playing');
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+            }
+        }
+
+        function toggleMusic() {
+            if (bgm.paused) {
+                bgm.play().catch(() => {});
+                updateMusicUI(true);
+            } else {
+                bgm.pause();
+                updateMusicUI(false);
+            }
+        }
+
+        startBtn.addEventListener('click', () => {
+            // First, trigger music (Browser allows this on direct click)
+            bgm.play().then(() => {
+                isMusicStarted = true;
+                updateMusicUI(true);
+            }).catch(e => console.error("Playback failed:", e));
+
+            // Fade out the overlay
+            welcomeOverlay.classList.add('fade-out');
+            
+            // Remove from DOM after transition
+            setTimeout(() => {
+                welcomeOverlay.remove();
+            }, 800);
+        });
+
+        musicBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMusic();
+        });
+
+        volSlider.addEventListener('input', (e) => {
+            bgm.volume = e.target.value;
+        });
+
+        // --- Mouse Sparkles ---
+        let lastSparkle = 0;
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            if (now - lastSparkle < 50) return;
+            lastSparkle = now;
+
+            const s = document.createElement('div');
+            s.className = 'sparkle';
+            s.style.left = e.clientX + 'px';
+            s.style.top = e.clientY + 'px';
+            document.body.appendChild(s);
+            setTimeout(() => s.remove(), 800);
+        });
+    </script>
+</body>
+</html>
