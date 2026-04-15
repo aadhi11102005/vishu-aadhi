@@ -395,15 +395,15 @@
         <section class="card">
             <h3 style="margin-bottom: 20px; color: var(--green-deep);">Send Kainettam</h3>
             <div class="payment-grid">
-                <a href="upi://pay?pa=adithyasathey35@okicici&pn=Adithya%20Sathey&am=50&cu=INR&mode=02&purpose=00&mc=0000" class="pay-btn" onclick="triggerPayment(50, event)">
+                <a href="upi://pay?pa=adithyasathey35@okicici&pn=Adithya%20Sathey&am=50&cu=INR" class="pay-btn" onclick="triggerPayment(50, event)">
                     <span>₹50 Blessing</span>
                     <span class="btn-icon">😄</span>
                 </a>
-                <a href="upi://pay?pa=adithyasathey35@okicici&pn=Adithya%20Sathey&am=100&cu=INR&mode=02&purpose=00&mc=0000" class="pay-btn" onclick="triggerPayment(100, event)">
+                <a href="upi://pay?pa=adithyasathey35@okicici&pn=Adithya%20Sathey&am=100&cu=INR" class="pay-btn" onclick="triggerPayment(100, event)">
                     <span>₹100 Respect</span>
                     <span class="btn-icon">😎</span>
                 </a>
-                <a href="upi://pay?pa=adithyasathey35@okicici&pn=Adithya%20Sathey&am=500&cu=INR&mode=02&purpose=00&mc=0000" class="pay-btn" onclick="triggerPayment(500, event)">
+                <a href="upi://pay?pa=adithyasathey35@okicici&pn=Adithya%20Sathey&am=500&cu=INR" class="pay-btn" onclick="triggerPayment(500, event)">
                     <span>₹500 Legend</span>
                     <span class="btn-icon">👑</span>
                 </a>
@@ -470,13 +470,12 @@
         animateConfetti();
 
         function triggerPayment(amt, event) {
-            // Instant trigger for confetti (visual feedback)
+            // FIXED: Instant navigation handled by anchor tag. This function only triggers animations.
             const x = event.clientX || window.innerWidth/2;
             const y = event.clientY || window.innerHeight/2;
             for(let i=0; i<30; i++) { confettis.push(new ConfettiParticle(x, y)); }
             
             if ("vibrate" in navigator) navigator.vibrate(50);
-            // No event.preventDefault() - browser handles redirect instantly for maximum compatibility
         }
 
         // --- Core Music & Welcome Flow ---
@@ -501,6 +500,7 @@
         }
 
         startBtn.addEventListener('click', () => {
+            // FIXED: Music starts only after user interaction
             bgm.play().then(() => updateMusicUI(true)).catch(() => {});
             welcomeOverlay.classList.add('fade-out');
             setTimeout(() => welcomeOverlay.remove(), 800);
